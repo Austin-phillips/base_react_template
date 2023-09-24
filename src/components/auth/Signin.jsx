@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { Box, Stack, Typography, TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Signin = () => {
+export default function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -62,5 +62,3 @@ const Signin = () => {
         </Stack>
     )
 }
-
-export default Signin;

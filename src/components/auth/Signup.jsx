@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Box, Stack, Typography, TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -62,5 +62,3 @@ const Signup = () => {
         </Stack>
     )
 }
-
-export default Signup;

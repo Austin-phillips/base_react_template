@@ -4,7 +4,7 @@ import { signOut } from 'firebase/auth';
 import { UserContext } from '../../context/UserContext';
 
 
-const AuthDetails = () => {
+export default function Profile() {
     const user = useContext(UserContext);
 
     const userSignOut = () => {
@@ -23,5 +23,3 @@ const AuthDetails = () => {
         </div>
     )
 }
-
-export default AuthDetails;

@@ -1,3 +1,4 @@
+import React from "react";
 import AuthDetails from "./components/auth/Profile";
 import Signin from "./components/auth/Signin";
 import Signup from "./components/auth/Signup";
@@ -10,6 +11,7 @@ import ProtectedRoutes from "./components/auth/ProtectedRoutes";
 import Loader from "./components/Loader";
 import Nav from "./components/nav/Nav";
 import Dashboard from "./components/dashboard/Dashboard";
+import AuthenticatedRoutes from "./components/auth/AuthenticatedRoutes";
 
 function App() {
   const [user, setUser] = useState({
@@ -52,8 +54,10 @@ function App() {
       <BrowserRouter>
         <Nav>
           <Routes>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Signin />} />
+            <Route element={<AuthenticatedRoutes />}>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Signin />} />
+            </Route>
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/profile" element={<AuthDetails />} />

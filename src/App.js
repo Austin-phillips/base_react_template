@@ -12,9 +12,7 @@ import Loader from "./components/Loader";
 import Nav from "./components/nav/Nav";
 import Dashboard from "./components/dashboard/Dashboard";
 import AuthenticatedRoutes from "./components/auth/AuthenticatedRoutes";
-import { setHeaders } from "./utils/setHeader";
 import { getUserData } from "./utils/getUserData";
-import { clearHeaders } from "./utils/clearHeaders";
 
 function App() {
   const [user, setUser] = useState({
@@ -25,18 +23,13 @@ function App() {
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, async (firebaseUser) => {
-      let userData;
       if (firebaseUser && firebaseUser.accessToken) {
-        setHeaders(firebaseUser.accessToken);
-        userData = await getUserData();
-      }
-      if (firebaseUser && userData.id) {
+        const userData = await getUserData(firebaseUser.accessToken);
         setUser({
           isAuthenticated: true,
           profile: userData,
         });
       } else {
-        clearHeaders();
         setUser({
           isAuthenticated: false,
           profile: {},

@@ -9,7 +9,7 @@ export default function Profile() {
       <h3>User is {user.isAuthenticated ? "Logged In" : "Logged Out"}</h3>
       {user.isAuthenticated && (
         <>
-          <p>Email is {user.email}</p>
+          <p>Email is {user.profile.email}</p>
         </>
       )}
     </div>

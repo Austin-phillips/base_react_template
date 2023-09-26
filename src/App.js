@@ -12,29 +12,34 @@ import Loader from "./components/Loader";
 import Nav from "./components/nav/Nav";
 import Dashboard from "./components/dashboard/Dashboard";
 import AuthenticatedRoutes from "./components/auth/AuthenticatedRoutes";
+import { setHeaders } from "./utils/setHeader";
+import { getUserData } from "./utils/getUserData";
+import { clearHeaders } from "./utils/clearHeaders";
 
 function App() {
   const [user, setUser] = useState({
     isAuthenticated: false,
-    email: null,
-    idToken: null,
+    profile: {},
   });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        const idToken = await firebaseUser.getIdToken();
+      let userData;
+      if (firebaseUser && firebaseUser.accessToken) {
+        setHeaders(firebaseUser.accessToken);
+        userData = await getUserData();
+      }
+      if (firebaseUser && userData.id) {
         setUser({
           isAuthenticated: true,
-          email: firebaseUser.email,
-          idToken,
+          profile: userData,
         });
       } else {
+        clearHeaders();
         setUser({
           isAuthenticated: false,
-          email: null,
-          idToken: null,
+          profile: {},
         });
       }
       setIsLoading(false);

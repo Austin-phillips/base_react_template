@@ -10,9 +10,9 @@ export default function Signup() {
 
   const signUp = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password).catch((err) =>
-      console.log("ERROR", err)
-    );
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => (window.location.href = "/"))
+      .catch((err) => console.log("ERROR", err));
   };
 
   return (

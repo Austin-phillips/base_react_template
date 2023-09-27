@@ -10,9 +10,11 @@ export default function Signin() {
 
   const signIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password).catch((err) =>
-      console.log("ERROR", err)
-    );
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        window.location.href = "/";
+      })
+      .catch((err) => console.log("ERROR", err));
   };
 
   return (
@@ -90,7 +92,7 @@ export default function Signin() {
               marginTop: "30px",
             }}
           >
-            Don&apost have an account? click <Link to={"/signup"}>Here</Link>
+            Don{"'"}t have an account? click <Link to={"/signup"}>Here</Link>
           </Typography>
         </Box>
       </Stack>

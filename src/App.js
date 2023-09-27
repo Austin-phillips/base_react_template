@@ -1,47 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthDetails from "./components/auth/Profile";
 import Signin from "./components/auth/Signin";
 import Signup from "./components/auth/Signup";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
+import { useState } from "react";
 import ProtectedRoutes from "./components/auth/ProtectedRoutes";
 import Loader from "./components/Loader";
 import Nav from "./components/nav/Nav";
 import Dashboard from "./components/dashboard/Dashboard";
 import AuthenticatedRoutes from "./components/auth/AuthenticatedRoutes";
+import { apiClient } from "./axios/apiClient";
+import { accessToken } from "./utils/getAccessToken";
 import { getUserData } from "./utils/getUserData";
 
 function App() {
-  const [user, setUser] = useState({
-    isAuthenticated: false,
-    profile: {},
-  });
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    const listen = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser && firebaseUser.accessToken) {
-        const userData = await getUserData(firebaseUser.accessToken);
-        setUser({
-          isAuthenticated: true,
-          profile: userData,
-        });
+    const fetchUser = async () => {
+      if (accessToken) {
+        apiClient.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+        try {
+          const data = await getUserData();
+          setUser(data);
+        } catch (err) {
+          setUser({});
+        }
+        setIsLoading(false);
+        return;
       } else {
-        setUser({
-          isAuthenticated: false,
-          profile: {},
-        });
+        delete apiClient.defaults.headers.common["Authorization"];
+        setUser({});
+        setIsLoading(false);
+        return;
       }
-      setIsLoading(false);
-    });
+    };
 
     return () => {
-      listen();
+      fetchUser();
     };
-  }, []);
+  }, [accessToken]);
 
   if (isLoading) {
     return <Loader />;

@@ -1,6 +1,3 @@
 import { createContext } from "react";
 
-export const UserContext = createContext({
-  isAuthenticated: false,
-  profile: {},
-});
+export const UserContext = createContext({});

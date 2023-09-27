@@ -11,18 +11,17 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
 import { Button, Divider } from "@mui/material";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
+import { UserContext } from "../../context/UserContext";
 
 const drawerWidth = 240;
 
 export default function Nav({ children }) {
   const user = useContext(UserContext);
-
   const signOutUser = () => {
-    signOut(auth);
+    signOut(auth).then(() => (window.location.href = "/login"));
   };
 
   return (
@@ -32,7 +31,7 @@ export default function Nav({ children }) {
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       ></AppBar>
-      {user.isAuthenticated && (
+      {user.id && (
         <Drawer
           sx={{
             width: drawerWidth,

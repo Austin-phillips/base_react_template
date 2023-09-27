@@ -1,12 +1,8 @@
-import axios from "axios";
+import { apiClient } from "../axios/apiClient";
 
-export const getUserData = async (token) => {
+export const getUserData = async () => {
   try {
-    const { data } = await axios.get("http://localhost:3001/users", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await apiClient.get("/users");
     return data;
   } catch (err) {
     console.log("ERROR: ", err);

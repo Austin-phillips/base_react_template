@@ -1,9 +1,10 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 export default function Dashboard() {
-    return (
-        <>
-            {"{{ DASHBOARD }}"}
-        </>
-    )
+  return (
+    <Box>
+      <Typography>{"{{DASHBOARD}}"}</Typography>
+    </Box>
+  );
 }

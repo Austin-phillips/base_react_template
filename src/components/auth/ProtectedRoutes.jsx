@@ -1,9 +1,19 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { accessToken } from "../../utils/getAccessToken";
+import { useAccessToken } from "../../hooks/useAccessToken";
+import Nav from "../nav/Nav";
 
 const ProtectedRoutes = () => {
-  return accessToken ? <Outlet /> : <Navigate to={"/login"} />;
+  const [accessToken] = useAccessToken();
+  return accessToken ? (
+    <>
+      <Nav>
+        <Outlet />
+      </Nav>
+    </>
+  ) : (
+    <Navigate to={"/login"} />
+  );
 };
 
 export default ProtectedRoutes;

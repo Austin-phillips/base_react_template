@@ -7,14 +7,25 @@ import { Link } from "react-router-dom";
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const signIn = (e) => {
     e.preventDefault();
+    setError(null);
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         window.location.href = "/";
       })
-      .catch((err) => console.log("ERROR", err));
+      .catch((err) => {
+        console.error(err);
+        if (err.message.includes("auth/invalid-login-credentials")) {
+          setError(
+            "The email or password you entered is incorrect. Please try again."
+          );
+        } else {
+          setError("Opps... There was an issue logging in. Please try again.");
+        }
+      });
   };
 
   return (
@@ -28,7 +39,6 @@ export default function Signin() {
       <Stack
         sx={(theme) => ({
           width: "550px",
-          height: "500px",
           border: "2px solid",
           borderColor: theme.palette.primary.main,
           alignSelf: "center",
@@ -37,10 +47,10 @@ export default function Signin() {
         })}
       >
         <Typography
-          variant="h3"
+          variant="h1"
           textAlign={"center"}
           sx={{
-            marginTop: "50px",
+            marginTop: "20px",
           }}
         >
           Log In
@@ -56,6 +66,16 @@ export default function Signin() {
             height: "80%",
           }}
         >
+          {error && (
+            <Typography
+              marginTop={"20px"}
+              textAlign={"center"}
+              color={"error"}
+              variant="body"
+            >
+              {error}
+            </Typography>
+          )}
           <TextField
             id="email"
             label="Email"

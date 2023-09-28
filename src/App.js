@@ -7,16 +7,16 @@ import { UserContext } from "./context/UserContext";
 import { useState } from "react";
 import ProtectedRoutes from "./components/auth/ProtectedRoutes";
 import Loader from "./components/Loader";
-import Nav from "./components/nav/Nav";
 import Dashboard from "./components/dashboard/Dashboard";
 import AuthenticatedRoutes from "./components/auth/AuthenticatedRoutes";
 import { apiClient } from "./axios/apiClient";
-import { accessToken } from "./utils/getAccessToken";
 import { getUserData } from "./utils/getUserData";
+import { useAccessToken } from "./hooks/useAccessToken";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({});
+  const [accessToken] = useAccessToken();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,18 +52,16 @@ function App() {
   return (
     <UserContext.Provider value={user}>
       <BrowserRouter>
-        <Nav>
-          <Routes>
-            <Route element={<AuthenticatedRoutes />}>
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Signin />} />
-            </Route>
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/profile" element={<AuthDetails />} />
-            </Route>
-          </Routes>
-        </Nav>
+        <Routes>
+          <Route element={<AuthenticatedRoutes />}>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Signin />} />
+          </Route>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/profile" element={<AuthDetails />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </UserContext.Provider>
   );

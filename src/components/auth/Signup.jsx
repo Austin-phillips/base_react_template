@@ -7,12 +7,22 @@ import { Link } from "react-router-dom";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const signUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => (window.location.href = "/"))
-      .catch((err) => console.log("ERROR", err));
+      .catch((err) => {
+        console.log("ERROR", err.message);
+        if (err.message.includes("(auth/email-already-in-use)")) {
+          setError(
+            "It looks like that email already exists. Please try a different one or log in."
+          );
+        } else {
+          setError("Opps... There was an issue logging in. Please try again.");
+        }
+      });
   };
 
   return (
@@ -26,7 +36,6 @@ export default function Signup() {
       <Stack
         sx={(theme) => ({
           width: "550px",
-          height: "500px",
           border: "2px solid",
           borderColor: theme.palette.primary.main,
           alignSelf: "center",
@@ -35,10 +44,10 @@ export default function Signup() {
         })}
       >
         <Typography
-          variant="h3"
+          variant="h1"
           textAlign={"center"}
           sx={{
-            marginTop: "50px",
+            marginTop: "20px",
           }}
         >
           Sign Up
@@ -54,6 +63,16 @@ export default function Signup() {
             height: "80%",
           }}
         >
+          {error && (
+            <Typography
+              marginTop={"20px"}
+              textAlign={"center"}
+              component={"body"}
+              color={"error"}
+            >
+              {error}
+            </Typography>
+          )}
           <TextField
             id="email"
             label="Email"

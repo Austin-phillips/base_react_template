@@ -50,20 +50,22 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={user}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AuthenticatedRoutes />}>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Signin />} />
-          </Route>
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/profile" element={<AuthDetails />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </UserContext.Provider>
+    <div>
+      <UserContext.Provider value={user}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AuthenticatedRoutes />}>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Signin />} />
+            </Route>
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/profile" element={<AuthDetails />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
+    </div>
   );
 }
 

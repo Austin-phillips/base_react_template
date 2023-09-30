@@ -3,7 +3,17 @@ import Box from "@mui/material/Box";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { UserContext } from "../../context/UserContext";
-import { Stack, Typography } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -14,37 +24,70 @@ export default function Nav({ children }) {
   };
 
   return (
-    <Stack display={"flex"}>
+    <Stack
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        overflowX: "none",
+      }}
+    >
       <Box
-        sx={{
+        sx={(theme) => ({
           height: "75px",
           width: "100%",
-          borderBottom: "1px grey solid",
-        }}
+          borderBottom: `1px ${theme.palette.grey[300]} solid`,
+        })}
       >
         <Stack
           display={"flex"}
           flexDirection={"row"}
-          justifyContent={"space-between"}
           alignItems={"center"}
+          justifyContent={"space-between"}
           sx={{
             height: "100%",
           }}
         >
-          <Typography>LOGO & IMAGE</Typography>
-          <Typography>MENU</Typography>
+          <Typography
+            sx={{
+              marginLeft: "25px",
+            }}
+          >
+            LOGO & IMAGE
+          </Typography>
         </Stack>
       </Box>
       <Stack display={"flex"} flexDirection={"row"}>
         <Box
-          sx={{
-            height: "100vh",
-            width: "150px",
-            borderRight: "1px grey solid",
-            padding: "30px",
-          }}
+          sx={(theme) => ({
+            height: "calc(100vh - 75px)",
+            width: "200px",
+            borderRight: `1px ${theme.palette.grey[300]} solid`,
+          })}
         >
-          <Typography>NAV</Typography>
+          <List
+            sx={{
+              width: "100%",
+            }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <Link
+                  style={{
+                    display: "flex",
+                    color: "black",
+                    textDecoration: "none",
+                  }}
+                  to="/"
+                >
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          </List>
         </Box>
         <Box
           sx={{

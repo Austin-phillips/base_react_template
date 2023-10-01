@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting started
+
+You will need to create a new project in firebase and add the credentials to env.
+
+### Getting reset password to work
+
+Edit the template in firebase project. Change the action url to http://localhost:3000/forgot-password/code
+
 ## Available Scripts
 
 In the project directory, you can run:

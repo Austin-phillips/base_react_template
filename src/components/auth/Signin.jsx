@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Box, Stack, Typography, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  Divider,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function Signin() {
@@ -106,14 +113,40 @@ export default function Signin() {
           >
             Login
           </Button>
-          <Typography
-            textAlign={"center"}
+          <Link
+            style={{ textDecoration: "none", marginTop: "30px" }}
+            to="/forgot-password"
+          >
+            <Typography
+              sx={(theme) => ({
+                color: theme.palette.link.main,
+              })}
+              textAlign={"center"}
+            >
+              Forgot password?
+            </Typography>
+          </Link>
+          <Divider
             sx={{
-              marginTop: "30px",
+              margin: "30px 0px",
+            }}
+          />
+          <Box
+            sx={{
+              margin: "0 auto",
             }}
           >
-            Don{"'"}t have an account? click <Link to={"/signup"}>Here</Link>
-          </Typography>
+            <Link to="/signup">
+              <Button
+                variant="contained"
+                sx={(theme) => ({
+                  backgroundColor: theme.palette.green[500],
+                })}
+              >
+                Create new account
+              </Button>
+            </Link>
+          </Box>
         </Box>
       </Stack>
     </Stack>

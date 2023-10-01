@@ -22,6 +22,21 @@ const theme = createTheme({
       800: "#424242",
       900: "#212121",
     },
+    green: {
+      main: "#4CAF50", // The main green color
+      100: "#E8F5E9", // Lightest shade of green
+      200: "#C8E6C9",
+      300: "#A5D6A7",
+      400: "#81C784",
+      500: "#4CAF50", // Same as main
+      600: "#43A047",
+      700: "#388E3C",
+      800: "#2E7D32",
+      900: "#1B5E20",
+    },
+    link: {
+      main: "#2196F3",
+    },
   },
   typography: {
     fontFamily: "Roboto, sans-serif", // Custom font family
@@ -38,6 +53,17 @@ const theme = createTheme({
       fontSize: "1rem",
     },
     // Define other custom typography styles here
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "#9e9e9e",
+          },
+        },
+      },
+    },
   },
   // You can define other custom theme properties here
 });

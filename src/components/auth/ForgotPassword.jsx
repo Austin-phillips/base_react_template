@@ -50,7 +50,9 @@ export const ForgotPassword = () => {
     >
       <Stack
         sx={(theme) => ({
-          width: "550px",
+          width: "50%",
+          minWidth: "300px",
+          maxWidth: "500px",
           border: "2px solid",
           borderColor: theme.palette.primary.main,
           alignSelf: "center",
